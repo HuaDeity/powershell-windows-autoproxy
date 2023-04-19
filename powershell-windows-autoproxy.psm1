@@ -1,10 +1,12 @@
-$proxyEnabled = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyEnable
-$proxySettings = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyServer
+$proxyEnable = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyEnable
+$proxyServer = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyServer
+$proxyOverride = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyOverride
+$no_proxy = ($proxyOverride -split ";") -join ","
 
 function proxy {
-    if ($proxySettings) {
-        $env:http_proxy = "http://$proxySettings"
-        $env:https_proxy = "http://$proxySettings"
+    if ($proxyServer) {
+        $env:http_proxy = "http://$proxyServer"
+        $env:https_proxy = "http://$proxyServer"
     }
 }
 
@@ -13,8 +15,9 @@ function noproxy {
     $env:https_proxy = $null
 }
 
-if ($proxyEnabled -eq 1) {
+if ($proxyEnable) {
     proxy
+    $env:no_proxy = $no_proxy
 }
 
 $exportModuleMemberParams = @{

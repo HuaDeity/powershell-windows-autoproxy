@@ -11,10 +11,16 @@ Install-Module -Name powershell-windows-autoproxy
 ## Usage
 
 ```powershell
+Import-Module powershell-windows-autoproxy
+```
+
+Add this line to your powershell profile.
+
+## Commands
+
+```powershell
 proxy
 noproxy
 ```
 
-There are two command you can use.
-
-For auto set proxy in powershell, just add proxy in your powershell profile.
+There are two commands you can use.

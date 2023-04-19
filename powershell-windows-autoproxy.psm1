@@ -13,6 +13,7 @@ function proxy {
 function noproxy {
     $env:http_proxy = $null
     $env:https_proxy = $null
+    $env:no_proxy = $null
 }
 
 if ($proxyEnable) {

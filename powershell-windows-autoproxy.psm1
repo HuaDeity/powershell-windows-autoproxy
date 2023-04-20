@@ -7,12 +7,16 @@ function proxy {
     if ($proxyServer) {
         $env:http_proxy = "http://$proxyServer"
         $env:https_proxy = "http://$proxyServer"
+        git config --global http.proxy "http://$proxyServer"
+        git config --global https.proxy "http://$proxyServer"
     }
 }
 
 function noproxy {
     $env:http_proxy = $null
     $env:https_proxy = $null
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
     $env:no_proxy = $null
 }
 

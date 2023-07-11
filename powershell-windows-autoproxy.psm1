@@ -5,24 +5,26 @@ $no_proxy = ($proxyOverride -split ";") -join ","
 
 function proxy {
     if ($proxyServer) {
-        $env:http_proxy = "http://$proxyServer"
-        $env:https_proxy = "http://$proxyServer"
-        git config --global http.proxy "http://$proxyServer"
-        git config --global https.proxy "http://$proxyServer"
+        [Environment]::SetEnvironmentVariable("http_proxy", "http://$proxyServer")
+        [Environment]::SetEnvironmentVariable("https_proxy", "http://$proxyServer")
+        [Environment]::SetEnvironmentVariable("all_proxy", "socks5://$proxyServer")
+        [Environment]::SetEnvironmentVariable("no_proxy", $no_proxy)
+        # git config --global http.proxy "http://$proxyServer"
+        # git config --global https.proxy "http://$proxyServer"
     }
 }
 
 function noproxy {
-    $env:http_proxy = $null
-    $env:https_proxy = $null
-    git config --global --unset http.proxy
-    git config --global --unset https.proxy
-    $env:no_proxy = $null
+    [Environment]::SetEnvironmentVariable("http_proxy", $null)
+    [Environment]::SetEnvironmentVariable("https_proxy", $null)
+    [Environment]::SetEnvironmentVariable("all_proxy", $null)
+    [Environment]::SetEnvironmentVariable("no_proxy", $null)
+    # git config --global --unset http.proxy
+    # git config --global --unset https.proxy
 }
 
 if ($proxyEnable) {
     proxy
-    $env:no_proxy = $no_proxy
 }
 
 $exportModuleMemberParams = @{

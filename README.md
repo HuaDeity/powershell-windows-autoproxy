@@ -28,12 +28,16 @@ proxy() {
   export https_proxy=http://$proxy_server:$proxy_port
   export all_proxy=socks5://$proxy_server:$proxy_port
   export no_proxy=$(pwsh.exe -Command \$env:no_proxy | tr -d '\r\n')
+  git config --global http.proxy "http://$proxy_server:$proxy_port"
+  git config --global https.proxy "http://$proxy_server:$proxy_port"
 }
 noproxy() {
   unset http_proxy
   unset https_proxy
   unset all_proxy
   unset no_proxy
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
 }
 if [ -n "host_proxy" ]; then
   proxy

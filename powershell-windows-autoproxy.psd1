@@ -3,16 +3,16 @@
     RootModule = 'powershell-windows-autoproxy.psm1'
 
     # Version number of this module.
-    ModuleVersion = '1.1.0'
+    ModuleVersion = '2.0.1'
 
     # ID used to uniquely identify this module
     GUID = '0c173855-ba65-4568-b7d4-49708e58733d'
 
     # Author of this module
-    Author = 'HuaDeity, and ChatGPT'
+    Author = 'HuaDeity, ChatGPT and Github Copilot'
 
     # Description of the functionality provided by this module
-    Description = 'Auto Set Proxy for Windows PowerShell'
+    Description = 'Auto Set Proxy for Windows PowerShell, WSL and WSA'
 
     # Functions to export from this module
     FunctionsToExport = @(

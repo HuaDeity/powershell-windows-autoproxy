@@ -1,6 +1,6 @@
 # powershell-windows-autoproxy
 
-Auto Set Proxy for Windows PowerShell
+Auto Set Proxy for Windows PowerShell, WSL and WSA
 
 ## Install
 
@@ -10,43 +10,39 @@ Install-Module -Name powershell-windows-autoproxy
 
 ## Usage
 
+### PowerShell
+
+Add the following to your PowerShell profile:
+
 ```powershell
 Import-Module powershell-windows-autoproxy
 ```
 
-Add this line to your powershell profile.
 
-### WSL Support
+### WSL
 
-```bash
-# proxy
-proxy_server=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
-host_proxy=$(pwsh.exe -Command \$env:all_proxy | tr -d '\r\n')
-proxy_port=$(echo "$host_proxy" | awk -F':' '{print $3}')
-proxy() {
-  export http_proxy=http://$proxy_server:$proxy_port
-  export https_proxy=http://$proxy_server:$proxy_port
-  export all_proxy=socks5://$proxy_server:$proxy_port
-  export no_proxy=$(pwsh.exe -Command \$env:no_proxy | tr -d '\r\n')
-  git config --global http.proxy "http://$proxy_server:$proxy_port"
-  git config --global https.proxy "http://$proxy_server:$proxy_port"
-}
-noproxy() {
-  unset http_proxy
-  unset https_proxy
-  unset all_proxy
-  unset no_proxy
-  git config --global --unset http.proxy
-  git config --global --unset https.proxy
-}
-if [ -n "host_proxy" ]; then
-  proxy
-else
-  noproxy
-fi
+If you want to add WSL Support, just change above command:
+
+```powershell
+## If you have mutiple WSL distributions, you can set multiple path, just divide theme with comma
+
+$WslPath = "\\wsl$\Ubuntu\home\huadeity"
+Import-Module powershell-windows-autoproxy -ArgumentList (,$WslPath)
 ```
 
-Add these to your WSL's .bashrc.
+Usually WSL Home Path looks like above, just change the distribution and username.
+
+Then add the following to your WSL's .bashrc:
+```bash
+source ~/.proxy.sh
+```
+
+### WSA
+Please toggle your WSA's Developer mode in Windows Subsystem for Android -> Advanced settings -> Developer mode.
+
+First time you have to allow adb to access your WSA.
+And everything will set automately.
+
 
 ## Commands
 

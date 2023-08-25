@@ -2,6 +2,8 @@
 
 Auto Set Proxy for Windows PowerShell, WSL and WSA
 
+## If you use Windows for Development, I highly recommend use Clash TUN mode or Router such as OpenClash or Surge. For the compatibility reason, I comment the WSL and WSA setting.
+
 ## Install
 
 ```powershell

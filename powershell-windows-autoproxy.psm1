@@ -9,6 +9,7 @@ $proxyPort = $proxyServer.Split(':')[1]
 $proxyOverride = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyOverride
 $no_proxy = ($proxyOverride -split ";") -join ","
 $no_proxy = $no_proxy -replace ",<local>", ""
+$checkProxy = [Environment]::GetEnvironmentVariable('http_proxy')
 
 # # WSA
 # $WsaService = Get-Service -Name WsaService -ErrorAction SilentlyContinue
@@ -92,7 +93,8 @@ function noproxy {
 
 if ($proxyEnable) {
     proxy
-} else {
+} 
+elseif ($checkProxy) {
     noproxy
 }
 

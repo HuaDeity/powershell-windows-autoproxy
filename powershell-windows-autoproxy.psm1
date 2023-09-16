@@ -6,7 +6,7 @@ $proxyServer = $proxyInfo.ProxyServer
 $proxyPort = $proxyServer.Split(':')[1]
 $proxyOverride = $proxyInfo.ProxyOverride
 $no_proxy = ($proxyOverride -split ";") -join ","
-$no_proxy = $no_proxy -replace ",<local>", ""
+$no_proxy = $no_proxy -replace "(,|^)<local>(,|$)", "$1$2"
 $checkProxy = [Environment]::GetEnvironmentVariable('http_proxy')
 
 # WSA

@@ -23,21 +23,14 @@ Import-Module powershell-windows-autoproxy
 
 ### WSL
 
-If you want to add WSL Support, just change above command:
-
-```powershell
-## If you have mutiple WSL distributions, you can set multiple path, just divide theme with comma
-
-$WslPath = "\\wsl$\Ubuntu\home\huadeity"
-Import-Module powershell-windows-autoproxy -ArgumentList (,$WslPath)
-```
-
-Usually WSL Home Path looks like above, just change the distribution and username.
-
-Then add the following to your WSL's .bashrc:
+Download wsl-autoproxy.sh to your WSL home directory.  
+Add the following to your .bashrc
 ```bash
-source ~/.proxy.sh
+source ~/.wsl-autoproxy.sh
 ```
+
+If you are in Windows Insider Dev Channel, Windows will make auto-proxy for your WSL, in such case you cannot use local proxy, because
+it will set 127.0.0.1 for your WSL, it is wrong.
 
 ### WSA
 Please toggle your WSA's Developer mode in Windows Subsystem for Android -> Advanced settings -> Developer mode.
@@ -45,6 +38,7 @@ Please toggle your WSA's Developer mode in Windows Subsystem for Android -> Adva
 First time you have to allow adb to access your WSA.
 And everything will set automately.
 
+If you are in Windows Insider Dev Channel, it cannot auto-proxy for WSA.
 
 ## Commands
 

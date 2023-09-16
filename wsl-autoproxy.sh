@@ -3,7 +3,9 @@
 proxyEnable=$(powershell.exe -Command "(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyEnable")
 proxyEnable=$(echo "$proxyEnable" | sed 's/ //g; s/\r//g')
 proxyServer=$(powershell.exe -Command "(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyServer")
+proxyServer=$(echo "$proxyServer" | sed 's/ //g; s/\r//g')
 proxyOverride=$(powershell.exe -Command "(Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyOverride")
+proxyOverride=$(echo "$proxyOverride" | sed 's/ //g; s/\r//g')
 proxyOverride=$(echo "$proxyOverride" | sed 's/;/,/g')
 proxyOverride=$(echo "$proxyOverride" | sed 's/<local>//g; s/<local>,//g; s/,<local>//g')
 

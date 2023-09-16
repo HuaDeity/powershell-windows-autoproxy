@@ -3,7 +3,7 @@
     RootModule = 'powershell-windows-autoproxy.psm1'
 
     # Version number of this module.
-    ModuleVersion = '2.0.4'
+    ModuleVersion = '2.1.0'
 
     # ID used to uniquely identify this module
     GUID = '0c173855-ba65-4568-b7d4-49708e58733d'

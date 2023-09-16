@@ -28,7 +28,7 @@ noproxy() {
 }
 
 
-if [ $proxyEnable = "1" ]; then
+if [ $proxyEnable = 1 ]; then
     proxy
 else
     noproxy

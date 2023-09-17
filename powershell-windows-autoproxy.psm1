@@ -14,7 +14,7 @@ $WsaService = Get-Service -Name WsaService -ErrorAction SilentlyContinue
 if ($WsaService) {
     $WsaEnabled = $WsaService.Status -eq 'Running'
     $adbCommand = Get-Command -Name adb -ErrorAction SilentlyContinue
-    if ( $proxyServer -eq "127.0.0.1" ){
+    if ( $proxyServer -like "*127.0.0.1*" ){
         $WsaIP = $(Get-NetIPAddress -InterfaceAlias 'vEthernet (WSLCore)' -AddressFamily IPV4).IPAddress
     } else {
         $WsaIP = $proxyServer.Split(':')[0]

@@ -28,8 +28,13 @@ function proxy {
         [Environment]::SetEnvironmentVariable("https_proxy", "http://$proxyServer")
         # [Environment]::SetEnvironmentVariable("all_proxy", "socks5://$proxyServer")
         [Environment]::SetEnvironmentVariable("no_proxy", $no_proxy)
-        git config --global http.proxy "http://$proxyServer"
-        git config --global https.proxy "http://$proxyServer"
+        try {
+            Get-Command git -ErrorAction Stop >$null
+            git config --global http.proxy "http://$proxyServer"
+            git config --global https.proxy "http://$proxyServer"
+        } catch {
+            # Write-Output "Git command does not exist, skipping proxy configuration"
+        }
 
         # WSA
         if ($WsaEnabled) {
@@ -52,8 +57,13 @@ function noproxy {
     [Environment]::SetEnvironmentVariable("https_proxy", $null)
     # [Environment]::SetEnvironmentVariable("all_proxy", $null)
     [Environment]::SetEnvironmentVariable("no_proxy", $null)
-    git config --global --unset http.proxy
-    git config --global --unset https.proxy
+    try {
+        Get-Command git -ErrorAction Stop >$null
+        git config --global --unset http.proxy
+        git config --global --unset https.proxy
+    } catch {
+        # Write-Output "Git command does not exist, skipping proxy configuration"
+    }
 
     # WSA
     if ($WsaEnabled) {
